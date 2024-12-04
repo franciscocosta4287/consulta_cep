@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Endereços</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        a button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+        a button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        ul li {
+            margin: 5px 0;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        ul li a:hover {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+            table th, table td {
+                padding: 8px;
+            }
+            a button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Relatório de Endereços</h1>
+
+    <a href="{% url 'dashboard' %}">
+        <button>Voltar para o Dashboard</button>
+    </a>
+
+    <ul>
+        <li><a href="{% url 'consulta_cep' %}">Consultar CEP</a></li>
+    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CEP</th>
+                <th>Logradouro</th>
+                <th>Bairro</th>
+                <th>Localidade</th>
+                <th>UF</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for endereco in enderecos %}
+            <tr>
+                <td>{{ endereco.id }}</td>
+                <td>{{ endereco.cep }}</td>
+                <td>{{ endereco.logradouro }}</td>
+                <td>{{ endereco.bairro }}</td>
+                <td>{{ endereco.localidade }}</td>
+                <td>{{ endereco.uf }}</td>
+                <td>{{ endereco.numero }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

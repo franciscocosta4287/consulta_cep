@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta CEP</title>
+</head>
+<body>
+    <h1>Consultar CEP</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="cep" placeholder="Digite o CEP" required>
+        <button type="submit">Consultar</button>
+    </form>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if data %}
+    <h2>Dados do CEP</h2>
+    <form method="post" action="{% url 'salvar_cep' %}">
+        {% csrf_token %}
+        <p>CEP: <input type="text" name="cep" value="{{ data.cep }}" readonly></p>
+        <p>Logradouro: <input type="text" name="logradouro" value="{{ data.logradouro }}"></p>
+        <p>Complemento: <input type="text" name="complemento" value="{{ data.complemento }}"></p>
+        <p>Bairro: <input type="text" name="bairro" value="{{ data.bairro }}"></p>
+        <p>Localidade: <input type="text" name="localidade" value="{{ data.localidade }}"></p>
+        <p>UF: <input type="text" name="uf" value="{{ data.uf }}"></p>
+        <p>IBGE: <input type="text" name="ibge" value="{{ data.ibge }}"></p>
+        <p>GIA: <input type="text" name="gia" value="{{ data.gia }}"></p>
+        <p>DDD: <input type="text" name="ddd" value="{{ data.ddd }}"></p>
+        <p>SIAFI: <input type="text" name="siafi" value="{{ data.siafi }}"></p>
+        <button type="submit">Salvar</button>
+    </form>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #555;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        ul li a:hover {
+            color: #0056b3;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            ul li a {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem-vindo ao Sistema</h1>
+    <p>Escolha uma das opções abaixo:</p>
+    <ul>
+        <li><a href="{% url 'consulta_cep' %}">Consultar CEP</a></li>
+        <!-- Adicione mais links aqui conforme necessário -->
+    </ul>
+    <a href="{% url 'relatorio_cep' %}" style="text-decoration: none;">
+        <button>
+            Ir para o Relatório
+        </button>
+    </a>
+</body>
+</html>

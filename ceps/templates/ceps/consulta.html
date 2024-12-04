@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta CEP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form p {
+            margin-bottom: 15px;
+        }
+        form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        a button {
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+            form button {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+    <script>
+        // Função para buscar os dados do CEP
+        function buscaCep() {
+            const cep = document.getElementById('cep').value;
+
+            // Verifica se o CEP tem 8 dígitos
+            if (cep.length === 8) {
+                fetch(`/consulta-cep/?cep=${cep}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            // Preenche os campos com os dados recebidos
+                            document.getElementById('logradouro').value = data.logradouro || '';
+                            document.getElementById('complemento').value = data.complemento || '';
+                            document.getElementById('bairro').value = data.bairro || '';
+                            document.getElementById('localidade').value = data.localidade || '';
+                            document.getElementById('uf').value = data.uf || '';
+                        }
+                    })
+                    .catch(error => console.error('Erro ao buscar o CEP:', error));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Consultar CEP</h1>
+    <a href="{% url 'dashboard' %}" style="text-decoration: none;">
+        <button style="padding: 15px; font-size: 16px;">Voltar para o Dashboard</button>
+    </a>
+    <form method="post" action="{% url 'salvar_cep' %}">
+        {% csrf_token %}
+        <p>CEP: <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onkeyup="buscaCep()" required></p>
+        <p>Logradouro: <input type="text" id="logradouro" name="logradouro"></p>
+        <p>Complemento: <input type="text" id="complemento" name="complemento"></p>
+        <p>Bairro: <input type="text" id="bairro" name="bairro"></p>
+        <p>Localidade: <input type="text" id="localidade" name="localidade"></p>
+        <p>UF: <input type="text" id="uf" name="uf"></p>
+        <p>Número: <input type="text" id="numero" name="numero"></p>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
